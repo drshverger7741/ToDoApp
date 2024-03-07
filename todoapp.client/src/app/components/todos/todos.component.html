@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="row">
+    <h1>Add ToDo</h1>
+    <form #form="ngForm" (ngSubmit)="addTodo()">
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <input type="text" class="form-control" id="description"
+               name="description"
+               [(ngModel)]="newTodo.description">
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+  <div class="row">
+    <h1>My Todos</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Description</th>
+          <th scope="col">Created Date</th>
+          <th scope="col">Completed?</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let todo of todos">
+          <td [class.stroke]="todo.isCompleted">{{todo.description}}</td>
+          <td>{{todo.createdDate | date: 'dd.MM.yyyy hh:mm a'}}</td>
+          <td><input type="checkbox"
+                     [checked]="todo.isCompleted"
+                     (change)="onCompletedChange(todo.id,todo)"/></td>
+          <td><a [routerLink]="[]" (click)="deleteTodo(todo.id)">Delete</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
